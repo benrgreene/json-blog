@@ -13,16 +13,8 @@ const addListeners = (blogSettings) => {
     if (numberDisplayed == numToDisplay) { return };
 
     Articles.displayArticles(numToDisplay, blogSettings);
-    Pagination.buildPagination(numToDisplay, blogSettings, pageChange);
+    Pagination.displayPagination(numToDisplay, blogSettings);
   });
-}
-
-const pageChange = (event, blogSettings) => {
-  const numToDisplay = Helpers.maxNumberToDisplay(blogSettings.breakpoints);
-  // set the new page
-  blogSettings.articlesContainer.dataset.pageOn = event.target.dataset.page;
-  // display articles for new page
-  Articles.displayArticles(numToDisplay, blogSettings);
 }
 
 export default {
@@ -33,6 +25,6 @@ export default {
     // display the initial articles
     const numToDisplay = Helpers.maxNumberToDisplay(blogSettings.breakpoints);
     Articles.displayArticles(numToDisplay, blogSettings);
-    Pagination.displayPagination(numToDisplay, blogSettings, pageChange); 
+    Pagination.displayPagination(numToDisplay, blogSettings);
   }
 }
