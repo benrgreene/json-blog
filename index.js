@@ -11,7 +11,7 @@ const addListeners = (blogSettings) => {
     // update the articles only if the number to display isn't equal to the number ACTUALLY displayed
     if (numberDisplayed == numToDisplay) { return };
     // only display if there is no lazyloading OR the articles are in view anyway
-    const shouldDisplay = !blogSettings.lazyload || articlesAreInView(blogSettings);
+    const shouldDisplay = !blogSettings.lazyload || Helpers.articlesAreInView(blogSettings);
     shouldDisplay && Articles.displayArticles(numToDisplay, blogSettings);
     shouldDisplay && Pagination.displayPagination(numToDisplay, blogSettings);
   });
@@ -19,8 +19,9 @@ const addListeners = (blogSettings) => {
   // If there's lazyloading, then we'll add a scroll listener for adding
   // the articles into existence.
   blogSettings.lazyload && document.addEventListener('scroll', (event) => {
-    const articlesLoaded = articlesAlreadyLoaded(blogSettings);
-    const inView         = articlesAreInView(blogSettings);
+    const numToDisplay   = Helpers.maxNumberToDisplay(blogSettings.breakpoints);
+    const articlesLoaded = Helpers.articlesAlreadyLoaded(blogSettings);
+    const inView         = Helpers.articlesAreInView(blogSettings);
     // If the articles aren't already loaded AND are in view, load them in
     if (!articlesLoaded && inView) {
       Articles.displayArticles(numToDisplay, blogSettings);
@@ -37,7 +38,7 @@ export default {
     // display the initial articles
     const numToDisplay = Helpers.maxNumberToDisplay(blogSettings.breakpoints);
     // only display if there is no lazyloading OR the articles are in view anyway
-    const shouldDisplay = !blogSettings.lazyload || articlesAreInView(blogSettings);
+    const shouldDisplay = !blogSettings.lazyload || Helpers.articlesAreInView(blogSettings);
     shouldDisplay && Articles.displayArticles(numToDisplay, blogSettings);
     shouldDisplay && Pagination.displayPagination(numToDisplay, blogSettings);
   }
