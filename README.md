@@ -53,3 +53,23 @@ JSONBlog.initBlog({
   articles: jsonData.items
 });
 ```
+
+## Custom Event
+
+The JSON Blog package includes its own custom event: `JSONBlogPageUpdate`. The event is fired and will contain the following data and is contained within the event's "detail" property:
+
+```
+{
+  pageOn: (integer - the new page displayed),
+  numToDisplay: (integer - the number of articles displayed),
+  articles: (array of objects - all newly displayed objects)
+}
+```
+
+The event is bound to the document, here's an example of how to add an event listener for the event:
+
+```
+document.addEventListener('JSONBlogPageUpdate', (event) => {
+  console.log(event.detail);
+})
+```
