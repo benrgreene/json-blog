@@ -47,7 +47,7 @@ const displayCallback  = (article) => {
 }
 
 // This initiates our blog!
-JSONBlog.initBlog({
+const myBlog = JSONBlog.initBlog({
   container: containerElement,
   buildArticleCallback: displayCallback,
   articles: jsonData.items
@@ -56,20 +56,27 @@ JSONBlog.initBlog({
 
 ## Custom Event
 
-The JSON Blog package includes its own custom event: `JSONBlogPageUpdate`. The event is fired and will contain the following data and is contained within the event's "detail" property:
+The JSON Blog package includes two events custom events:
+
+* `JSONBlogPageUpdate`: emitted when a new page is viewed. Callbacks should take in the arguements
+  * newPageNum: the new page number being viewed
+  * numToDisplay: the number of articles being displayed
+  * articles: an array of the article objects being displayed
+* `JSONBlogBreakpoint`: emitted when resizing the window causes a new breakpoint to be viewed:
+  * pageOn: the page being viewed
+  * numberDisplayed: the number of articles being displayed
+
+Here's how to bind to them:
 
 ```
-{
-  pageOn: (integer - the new page displayed),
-  numToDisplay: (integer - the number of articles displayed),
-  articles: (array of objects - all newly displayed objects)
-}
-```
+const myBlog = JSONBlog.initBlog({ ... });
 
-The event is bound to the document, here's an example of how to add an event listener for the event:
-
-```
-document.addEventListener('JSONBlogPageUpdate', (event) => {
-  console.log(event.detail);
+myBlog.on('JSONBlogBreakpoint', (pageOn, numberDisplayed) => {
+  console.log(`new breakpoint - ${numberDisplayed} articles displayed on page ${pageOn}`);
 })
+
+myBlog.on('JSONBlogPageUpdate', (newPageNum, numToDisplay, articles) => {
+  console.log(`${newPageNum} ${numToDisplay}`);
+  console.log(articles);
+});
 ```
