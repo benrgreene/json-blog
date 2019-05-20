@@ -11,6 +11,8 @@ These are the *required* arguements:
 
 Here is the list of *optional* arguements:
 
+* **classes** (array of strings): array of any custom css classes to add to the article's container. Defaults to an empty array.
+* **paginationClasses** (array of strings): array of any custom css classes to add to the pagination container. Defaults to an empty array.
 * **articles** (array of objects): objects represent articles. defaults to an empty array.
 * **paginationArrows** (boolean): whether or not pagination arrows are displayed, defaults to true.
 * **previousContent** (string): content to be used for the previous arrow. defaults to '&#8592;',
