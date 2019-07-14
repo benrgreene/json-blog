@@ -19,6 +19,8 @@ Here is the list of *optional* arguements:
 * **nextContent** (string): content to be used for the next arrow. defaults to '&#8594;',
 * **lazyload** (boolean): whether or not the function for displaying the first page of articles should wait to be fired until the articles container is in view. defaults to false
 * **lazyloadCompensation** (int): the offset for how far above the bottom of the screen (in px) the article container should be before lazyloading in. defaults to 100.
+* **loadMore**: whether a "load more" button should be displayed instead of pagination arrows. If set to true, pagination arrow settings will be ignored. Will not reload articles when window is resized, and will always load the number of articles loaded on page load as determined by the responsive settings. defaults to false.
+* **noMoreMessage**: the message to display in the disabled load more button.
 
 ## Example
 

@@ -2,6 +2,7 @@ import EventEmitter from "./lib/EventEmitter.js";
 import Helpers from "./lib/Helpers.js";
 import Articles from "./lib/Articles.js";
 import Pagination from "./lib/Pagination.js";
+import LoadMore from "./lib/LoadMore.js";
 
 // Add all our event listeners for the blog instance
 const addListeners = (blogSettings) => {
@@ -15,7 +16,8 @@ const addListeners = (blogSettings) => {
     if (blogSettings.lazyload && !Helpers.articlesAreInView(blogSettings)) { return; }
     // need to display new articles, paginations, and send event for new breakpoint reached
     Articles.displayArticles(numToDisplay, blogSettings);
-    Pagination.displayPagination(numToDisplay, blogSettings);
+    (!blogSettings.loadMore) && Pagination.displayPagination(numToDisplay, blogSettings);
+    blogSettings.loadMore && LoadMore.displayLoadMore(numToDisplay, blogSettings);
     blogSettings.emitter.emit('JSONBlogBreakpoint',
                               parseInt(blogSettings.articlesContainer.dataset.pageOn, 10),
                               numToDisplay);
@@ -30,7 +32,8 @@ const addListeners = (blogSettings) => {
     // If the articles aren't already loaded AND are in view, load them in
     if (!articlesLoaded && inView) {
       Articles.displayArticles(numToDisplay, blogSettings);
-      Pagination.displayPagination(numToDisplay, blogSettings);
+      (!blogSettings.loadMore) && Pagination.displayPagination(numToDisplay, blogSettings);
+      blogSettings.loadMore && LoadMore.displayLoadMore(numToDisplay, blogSettings);
     }
   });
 }
@@ -48,7 +51,8 @@ export default {
     // only display if there is no lazyloading OR the articles are in view anyway
     if (blogSettings.lazyload && !Helpers.articlesAreInView(blogSettings)) { return; }
     Articles.displayArticles(numToDisplay, blogSettings);
-    Pagination.displayPagination(numToDisplay, blogSettings);
+    (!blogSettings.loadMore) && Pagination.displayPagination(numToDisplay, blogSettings);
+    blogSettings.loadMore && LoadMore.displayLoadMore(numToDisplay, blogSettings);
     // send back the event emmiter for users to attach to
     return blogSettings.emitter;
   }
