@@ -13,7 +13,7 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "dompurify": "^1.0.8",
+    "dompurify": "^2.0.14",
     "extract-loader": "^3.0.0",
     "file-loader": "^2.0.0",
     "webpack": "^4.20.2",
